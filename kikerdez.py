@@ -17,19 +17,22 @@ def short_text(pair):
     answer = input(pair.ask)
     return equals(answer, pair.answer)
 
-def read_from_csv(fname, question1, question2):
+def read_from_csv(fname):
     '''
-    read_from_csv('fovarosok.csv', 'Mi {} fővárosa? ', 'Minek a fővárosa {}? ')
+    read_from_csv('fovarosok.csv')
     '''
     pairs = []
     with open(fname, 'rt') as f:
-        for row in csv.reader(f):
+        rows = list(csv.reader(f))
+        question1 = rows[0][0]
+        question2 = rows[0][1]
+        for row in rows[1:]:
             pairs.append(Pair(question1, row[0], row[1]))
             pairs.append(Pair(question2, row[1], row[0]))
     return pairs
 
 def main():
-    pairs = read_from_csv('data/fovarosok.csv', 'Mi {} fővárosa? ', 'Minek a fővárosa {}? ')
+    pairs = read_from_csv('data/fovarosok.csv')
     random.shuffle(pairs)
     for pair in pairs:
         while not short_text(pair):
