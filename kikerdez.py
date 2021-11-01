@@ -1,6 +1,7 @@
 import csv
 import random
 import sys
+from Levenshtein import jaro_winkler
 
 class Pair:
     def __init__(self, question, prompt, answer):
@@ -10,7 +11,7 @@ class Pair:
         self.ask = self.question.format(self.prompt)
 
 def equals(text1, text2):
-    return text1.lower() == text2.lower()
+    return jaro_winkler(text1.lower(), text2.lower()) > 0.95
 
 def short_text(pair):
     answer = input(pair.ask)
