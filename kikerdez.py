@@ -32,7 +32,7 @@ def read_from_csv(fname):
     return pairs
 
 def main():
-    pairs = read_from_csv('data/fovarosok.csv')
+    pairs = read_from_csv(sys.argv[1])
     random.shuffle(pairs)
     for pair in pairs:
         while not short_text(pair):
